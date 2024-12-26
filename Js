@@ -1,0 +1,48 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Form validation
+  const contactForm = document.getElementById("contactForm");
+  const formMessage = document.getElementById("formMessage");
+
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = contactForm.name.value.trim();
+    const email = contactForm.email.value.trim();
+    const message = contactForm.message.value.trim();
+
+    if (!name || !email || !message) {
+      formMessage.textContent = "All fields are required!";
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      formMessage.textContent = "Please enter a valid email address!";
+      return;
+    }
+
+    formMessage.textContent = "Form submitted successfully!";
+    formMessage.style.color = "green";
+
+    // Simulate form reset
+    contactForm.reset();
+  });
+
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
+  // Dynamic text update
+  const dynamicText = document.getElementById("dynamicText");
+  const menuItems = document.querySelectorAll("#menu > li");
+
+  menuItems.forEach((item) => {
+    item.addEventListener("mouseover", () => {
+      dynamicText.textContent = `You hovered over: ${item.textContent}`;
+    });
+
+    item.addEventListener("mouseout", () => {
+      dynamicText.textContent = "Hover over the menu to see sub-items!";
+    });
+  });
+});
